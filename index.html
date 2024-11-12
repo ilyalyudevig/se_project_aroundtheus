@@ -4,12 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around The US</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body>
     <div class="page">
-      <header class="header"></header>
+      <header class="header">
+        <div class="header__logo-container">
+          <img
+            class="header__logo"
+            src="./images/around-the-us-logo.svg"
+            alt="Around The US logo"
+          />
+        </div>
+      </header>
       <main class="content">
-        <section class="profile"></section>
+        <section class="profile">
+          <img
+            class="profile__avatar"
+            src="./images/jacques-cousteau.png"
+            alt="Profile avatar"
+          />
+          <div class="profile__info">
+            <div class="profile__info-container">
+              <h1 class="profile__name">Jacques Cousteau</h1>
+              <p class="profile__job">Explorer</p>
+            </div>
+            <button class="profile__edit-button" type="button">
+              <img
+                class="profile__edit-icon"
+                src="./images/edit-icon.svg"
+                alt="Edit button"
+              />
+            </button>
+          </div>
+          <button class="profile__add-button" type="button">
+            <img
+              class="profile__add-icon"
+              src="./images/add-icon.svg"
+              alt="Add button"
+            />
+          </button>
+        </section>
         <section class="places"></section>
       </main>
       <footer class="footer"></footer>

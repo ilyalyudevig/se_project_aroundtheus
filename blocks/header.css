@@ -1,0 +1,8 @@
+.header__logo-container {
+  display: flex;
+  border-bottom: 1px solid #545454;
+}
+
+.header__logo {
+  margin-bottom: 41px;
+}

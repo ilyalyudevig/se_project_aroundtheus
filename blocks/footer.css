@@ -1,0 +1,14 @@
+.footer {
+  padding: 67px 0 15px;
+}
+
+.footer__copyright {
+  font-family: "Inter", "Arial", sans-serif;
+  color: #545454;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+}

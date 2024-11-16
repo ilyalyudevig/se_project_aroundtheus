@@ -10,7 +10,6 @@
 
 .profile__avatar {
   width: 120px;
-  height: 120px;
   border-radius: 50%;
 }
 
@@ -101,8 +100,6 @@
   .profile__job {
     font-size: 18px;
     font-weight: 400;
-    margin: 0;
-    padding: 0;
   }
 
   .profile__edit-button {
@@ -121,7 +118,6 @@
       "add-button";
     column-gap: 15px;
     justify-items: center;
-    padding: 42px 0 36px;
   }
 
   .profile__avatar {
@@ -132,14 +128,19 @@
   .profile__info-container {
     grid-area: info;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 8fr 1fr;
     grid-template-areas: ". info edit-button";
-    margin: 0 auto;
     text-align: center;
   }
 
   .profile__info {
     grid-column: 2 / 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
   }
 
   .profile__name {
@@ -155,32 +156,23 @@
   .profile__job {
     font-size: 14px;
     font-weight: 400;
-    margin: 0;
-    padding: 0;
   }
 
   .profile__edit-button {
     grid-area: edit-button;
-    box-sizing: border-box;
     width: 18px;
     height: 18px;
     margin-left: 10px;
     margin-top: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .profile__edit-icon {
     width: 8px;
-    height: 8px;
   }
 
   .profile__add-button {
-    box-sizing: border-box;
     max-width: 282px;
     margin: 36px 0 0;
-    padding: 0;
   }
 
   .profile__add-icon {

@@ -128,12 +128,13 @@
   .profile__info-container {
     grid-area: info;
     display: grid;
-    grid-template-columns: 1fr 8fr 1fr;
+    grid-template-columns: 1fr minmax(min-content, 1fr) 1fr;
     grid-template-areas: ". info edit-button";
     text-align: center;
   }
 
   .profile__info {
+    max-width: 196px;
     grid-column: 2 / 3;
     text-overflow: ellipsis;
     overflow: hidden;

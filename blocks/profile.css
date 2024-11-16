@@ -1,7 +1,9 @@
 .profile {
+  max-width: 880px;
+  margin: 0 auto;
   padding: 40px 0 51px;
   display: grid;
-  grid-template-columns: 120px auto 150px;
+  grid-template-columns: 120px 1fr minmax(50px, 1fr);
   column-gap: 30px;
   align-items: center;
 }
@@ -12,11 +14,11 @@
   border-radius: 50%;
 }
 
-.profile__info {
+.profile__info-container {
   display: flex;
 }
 
-.profile__info-container {
+.profile__info {
   display: flex;
   flex-direction: column;
   font-family: "Inter", "Arial", sans-serif;
@@ -54,6 +56,7 @@
 
 .profile__add-button {
   background-color: #000;
+  margin-left: auto;
   width: 150px;
   height: 50px;
   border: 2px solid #fff;
@@ -68,4 +71,112 @@
 .profile__edit-button:hover,
 .profile__add-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 920px) {
+  .profile__add-button {
+    max-width: 150px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 774px) {
+  .profile {
+    padding: 42px 0 36px;
+  }
+
+  .profile__name {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0 9px;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .profile__job {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile__edit-button {
+    margin-top: 8px;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, min-content);
+    grid-template-areas:
+      "avatar"
+      "info"
+      "add-button";
+    column-gap: 15px;
+    justify-items: center;
+    padding: 42px 0 36px;
+  }
+
+  .profile__avatar {
+    grid-area: avatar;
+    margin: 0 0 30px;
+  }
+
+  .profile__info-container {
+    grid-area: info;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: ". info edit-button";
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .profile__info {
+    grid-column: 2 / 3;
+  }
+
+  .profile__name {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 9px;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .profile__job {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile__edit-button {
+    grid-area: edit-button;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    margin-top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile__add-button {
+    box-sizing: border-box;
+    max-width: 282px;
+    margin: 36px 0 0;
+    padding: 0;
+  }
+
+  .profile__add-icon {
+    width: 16px;
+    height: 16px;
+  }
 }

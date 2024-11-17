@@ -1,25 +1,27 @@
 # Project 3: Around The U.S.
 
-### Overview
+Live demo of the project on GitHub Pages: [Around the U.S.](https://ilyalyudevig.github.io/se_project_aroundtheus/)
 
-- Intro
-- Figma
-- Images
+## Description
 
-**Intro**
+This project is an interactive page where users can add and remove photos, like photos of other users, and make a few minor adjustments to their own profile.
 
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.
+The webpage is responsive, i.e., the content area's width changes depending on the browser window's width, and there is no horizontal scrolling. The minimum supported screen width is 320px with one card per row. The maximum window width is 1280px, with three cards per row—880px for the content and 200px of empty space on each side.
 
-**Figma**
+![Layout demo](/docs/layout-demo.gif "Layout demo")
 
-- [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
+The project uses HTML to structure the content of the webpage and CSS is used to style it.
 
-**Images**
+HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/).
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster.
+![BEM markup](/docs/bem-markup.png "BEM markup")
 
-Good luck and have fun!
+Each block's styles are contained in a separate CSS file (flat BEM file structure).
 
-**Live Demo**
+![Flat BEM file structure](/docs/flat-bem-file-structure.png "Flat BEM file structure")
 
-- [Link to the website](https://ilyalyudevig.github.io/se_project_aroundtheus/)
+The project uses [Normalize.css](https://nicolasgallagher.com/about-normalize-css/) that provides a consistent base for styling across different browsers.
+
+The project uses Flexbox and Grid for layout. The cards section uses Flexbox to display the cards, and Grid layout is used in the profile section.
+
+The layout is implemented according to the [design project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1).

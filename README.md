@@ -10,7 +10,7 @@ The webpage is responsive, i.e., the content area's width changes depending on t
 
 ![Layout demo](/docs/layout-demo.gif "Layout demo")
 
-The project uses HTML to structure the content of the webpage and CSS is used to style it.
+The project uses HTML to structure the content of the webpage, and CSS is used to style it.
 
 HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/):
 
@@ -20,8 +20,8 @@ Each block's styles are contained in a separate CSS file (flat BEM file structur
 
 ![Flat BEM file structure](/docs/flat-bem-file-structure.png "Flat BEM file structure")
 
-The project uses [Normalize.css](https://nicolasgallagher.com/about-normalize-css/) that provides a consistent base for styling across different browsers.
+The project uses [Normalize.css](https://nicolasgallagher.com/about-normalize-css/), which provides a consistent base for styling across different browsers.
 
-The project uses Flexbox and Grid for layout. The cards section uses Flexbox to display the cards, and Grid layout is used in the profile section.
+The project uses Flexbox and Grid for layout. The cards section displays the cards using Flexbox, and the profile section uses Grid layout.
 
-The layout is implemented according to the [design project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1).
+The layout is implemented according to the [project design on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1).

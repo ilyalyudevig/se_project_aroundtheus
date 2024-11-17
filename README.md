@@ -12,11 +12,11 @@ The webpage is responsive, i.e., the content area's width changes depending on t
 
 The project uses HTML to structure the content of the webpage and CSS is used to style it.
 
-HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/).
+HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/):
 
 ![BEM markup](/docs/bem-markup.png "BEM markup")
 
-Each block's styles are contained in a separate CSS file (flat BEM file structure).
+Each block's styles are contained in a separate CSS file (flat BEM file structure):
 
 ![Flat BEM file structure](/docs/flat-bem-file-structure.png "Flat BEM file structure")
 

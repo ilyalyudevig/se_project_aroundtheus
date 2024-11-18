@@ -2,6 +2,8 @@
 
 Live demo of the project on GitHub Pages: [Around the U.S.](https://ilyalyudevig.github.io/se_project_aroundtheus/)
 
+Video description of the project: [Video description](https://www.loom.com/share/1b8304d8a2a2484ab2b47a13c2426f46?sid=32d6da26-b11f-445e-b874-6bf916f0a151)
+
 ## Description
 
 This project is an interactive page where users can add and remove photos, like photos of other users, and make a few minor adjustments to their own profile.

@@ -10,6 +10,8 @@ The webpage is responsive, i.e., the content area's width changes depending on t
 
 ![Layout demo](/docs/layout-demo.gif "Layout demo")
 
+## Technologies
+
 The project uses HTML to structure the content of the webpage, and CSS is used to style it.
 
 HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/):

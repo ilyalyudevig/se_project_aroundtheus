@@ -133,6 +133,41 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
     </footer>
+    <div class="modal">
+      <div class="modal__container">
+        <button class="modal__close-button" type="button" aria-label="Close">
+          <img
+            class="modal__close-icon"
+            src="./images/close-icon.svg"
+            alt="Close icon"
+          />
+        </button>
+        <h2 class="modal__title">Edit profile</h2>
+        <form class="modal__form">
+          <fieldset class="modal__fieldset">
+            <input
+              class="modal__input"
+              type="text"
+              name="name"
+              placeholder="Name"
+              required
+              aria-label="Name"
+            />
+            <input
+              class="modal__input"
+              type="text"
+              name="job"
+              placeholder="Job"
+              required
+              aria-label="Job"
+            />
+          </fieldset>
+          <button class="modal__save-button" type="submit" aria-label="Save">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

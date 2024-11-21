@@ -63,54 +63,6 @@
   margin: 35px 0 48px;
 }
 
-.modal__form {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal__fieldset {
-  border: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal__input {
-  margin-bottom: 30px;
-  padding: 0;
-  font-family: "Inter", "Arial", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: #000;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 100%;
-  display: flex;
-  align-items: start;
-  padding-bottom: 9px;
-}
-
-.modal__save-button {
-  margin: 18px 0 36px;
-  padding: 14px 0;
-  font-family: "Inter", "Arial", sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: #fff;
-  background-color: #000;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.modal__save-button:hover {
-  opacity: 0.8;
-}
-
 @media screen and (max-width: 615px) {
   .modal__container {
     max-width: 282px;
@@ -122,7 +74,7 @@
     font-size: 18px;
   }
 
-  .modal__save-button {
+  .form__save-button {
     margin: 15px 0 25px;
     font-size: 14px;
   }

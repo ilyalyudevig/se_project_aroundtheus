@@ -26,15 +26,23 @@
   padding: 0 36px;
 }
 
-.modal__close-button {
+.modal__close-button-container {
   position: absolute;
   top: -40px;
   right: -40px;
   width: 40px;
   height: 40px;
   transform: rotate(45deg);
+}
+
+.modal__close-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform: rotate(45deg);
   background-color: transparent;
-  background-size: cover;
+  background-image: url("../images/close-icon.svg");
+  background-size: 32px;
   background-repeat: no-repeat;
   background-position: center;
   border: none;
@@ -44,10 +52,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.modal__close-icon {
-  transform: rotate(-45deg);
 }
 
 .modal__close-button:hover {
@@ -79,15 +83,16 @@
     font-size: 14px;
   }
 
-  .modal__close-button {
+  .modal__close-button-container {
     width: 26px;
     height: 26px;
     top: -40px;
     right: 4px;
   }
 
-  .modal__close-icon {
-    width: 20px;
-    height: 20px;
+  .modal__close-button {
+    width: 26px;
+    height: 26px;
+    background-size: 21px;
   }
 }

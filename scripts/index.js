@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -25,31 +25,33 @@ let initialCards = [
   },
 ];
 
+const profileModal = document.querySelector(".modal");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const closeEditProfileFormButton = document.querySelector(
   ".modal__close-button"
 );
 const editProfileFormSaveButton = document.querySelector(".form__save-button");
-const profileFormElement = document.querySelector(".modal__form");
-const nameInput = profileFormElement.querySelectorAll(".form__input")[0];
-const jobInput = profileFormElement.querySelectorAll(".form__input")[1];
+const profileFormElement = document.forms["profile-form"];
+const nameInput = profileFormElement.querySelector("[name='name']");
+const jobInput = profileFormElement.querySelector("[name='job']");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const placesList = document.querySelector(".places__list");
 function editProfile() {
-  document.querySelector(".modal").classList.add("modal_opened");
+  profileModal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
 function closeEditProfileForm() {
-  document.querySelector(".modal").classList.remove("modal_opened");
+  profileModal.classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
+  closeEditProfileForm();
 }
 
 function getCardElement(data) {

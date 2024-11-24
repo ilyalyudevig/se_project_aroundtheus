@@ -41,92 +41,19 @@
       </section>
       <section class="places">
         <ul class="places__list">
-          <li class="places__card card">
-            <img
-              class="card__image"
-              src="./images/yosemite.jpg"
-              alt="Yosemite valley"
-            />
-            <div class="card__text-container">
-              <h2 class="card__title">Yosemite</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
-          <li class="places__card card">
-            <img
-              class="card__image"
-              src="./images/lake-louise.jpg"
-              alt="Lake Louise"
-            />
-            <div class="card__text-container">
-              <h2 class="card__title">Lake Louise</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
-          <li class="places__card card">
-            <img
-              class="card__image"
-              src="./images/bald-mountains.jpg"
-              alt="Bald Mountains"
-            />
-            <div class="card__text-container">
-              <h2 class="card__title">Bald Mountains</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
-          <li class="places__card card">
-            <img class="card__image" src="./images/latemar.jpg" alt="Latemar" />
-            <div class="card__text-container">
-              <h2 class="card__title">Latemar</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
-          <li class="places__card card">
-            <img
-              class="card__image"
-              src="./images/vanoise.jpg"
-              alt="Vanoise National Park"
-            />
-            <div class="card__text-container">
-              <h2 class="card__title">Vanoise National Park</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
-          <li class="places__card card">
-            <img
-              class="card__image"
-              src="./images/lago.jpg"
-              alt="Lago di Braies"
-            />
-            <div class="card__text-container">
-              <h2 class="card__title">Lago di Braies</h2>
-              <button
-                class="card__like-button"
-                type="button"
-                aria-label="Like button"
-              ></button>
-            </div>
-          </li>
+          <template id="card-template">
+            <li class="places__card card">
+              <img class="card__image" src="" alt="" />
+              <div class="card__text-container">
+                <h2 class="card__title"></h2>
+                <button
+                  class="card__like-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
+              </div>
+            </li>
+          </template>
         </ul>
       </section>
     </main>

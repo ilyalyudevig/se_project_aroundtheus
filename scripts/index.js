@@ -106,16 +106,22 @@ function getCardElement(data) {
   cardImage.setAttribute("alt", data.name);
 
   const likeButton = cardElement.querySelector(".card__like-button");
+  const trashButton = cardElement.querySelector(".card__trash");
 
   likeButton.addEventListener("click", handleLikeClick);
+  trashButton.addEventListener("click", handleTrashClick);
 
   return cardElement;
 }
 
 function handleLikeClick(evt) {
   evt.preventDefault();
-  console.log("like!");
   evt.target.classList.toggle("card__like-button_checked");
+}
+
+function handleTrashClick(evt) {
+  evt.preventDefault();
+  evt.target.parentElement.remove();
 }
 
 renderCards(initialCards);

@@ -36,6 +36,10 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+.card__like-button_checked {
+  background-image: url("../images/like-icon-filled.svg");
+}
+
 .card__like-button:hover {
   opacity: 0.5;
 }

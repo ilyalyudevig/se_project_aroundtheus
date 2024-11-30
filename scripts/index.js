@@ -38,13 +38,28 @@ const closeAddPlaceFormButton = placeModal.querySelector(
   ".modal__close-button"
 );
 
-const editProfileFormSaveButton = document.querySelector(".form__save-button");
 const profileFormElement = document.forms["profile-form"];
+const addPlaceFormElement = document.forms["place-form"];
+
+const editProfileFormSaveButton =
+  profileFormElement.querySelector(".form__save-button");
+const addPlaceFormSaveButton =
+  addPlaceFormElement.querySelector(".form__save-button");
+
 const nameInput = profileFormElement.querySelector("[name='name']");
 const jobInput = profileFormElement.querySelector("[name='job']");
+
+const placeTitleInput = addPlaceFormElement.querySelector("[name='title']");
+const imgURLInput = addPlaceFormElement.querySelector("[name='url']");
+
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
+
 const placesList = document.querySelector(".places__list");
+
+function renderCards(cardsArray) {
+  cardsArray.forEach((card) => placesList.append(getCardElement(card)));
+}
 
 function addPlace() {
   placeModal.classList.add("modal_opened");
@@ -56,15 +71,27 @@ function editProfile() {
   jobInput.value = profileJob.textContent;
 }
 
-function closeForm(e) {
-  e.target.closest(".modal").classList.remove("modal_opened");
+function closeForm(evt) {
+  evt.target.closest(".modal").classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeEditProfileForm();
+  closeForm(evt);
+}
+
+function handleAddPlaceFormSubmit(evt) {
+  evt.preventDefault();
+
+  const newCard = getCardElement({
+    name: placeTitleInput.value,
+    link: imgURLInput.value,
+  });
+
+  placesList.prepend(newCard);
+  closeForm(evt);
 }
 
 function getCardElement(data) {
@@ -81,11 +108,13 @@ function getCardElement(data) {
   return cardElement;
 }
 
-initialCards.forEach((card) => placesList.append(getCardElement(card)));
+renderCards(initialCards);
 
 editProfileButton.addEventListener("click", editProfile);
 closeEditProfileFormButton.addEventListener("click", closeForm);
 closeAddPlaceFormButton.addEventListener("click", closeForm);
+
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
 
 addPlaceButton.addEventListener("click", addPlace);

@@ -25,11 +25,19 @@ const initialCards = [
   },
 ];
 
-const profileModal = document.querySelector(".modal");
+const profileModal = document.querySelector(".page__profile-modal");
+const placeModal = document.querySelector(".page__place-modal");
+
 const editProfileButton = document.querySelector(".profile__edit-button");
-const closeEditProfileFormButton = document.querySelector(
+const addPlaceButton = document.querySelector(".profile__add-button");
+
+const closeEditProfileFormButton = profileModal.querySelector(
   ".modal__close-button"
 );
+const closeAddPlaceFormButton = placeModal.querySelector(
+  ".modal__close-button"
+);
+
 const editProfileFormSaveButton = document.querySelector(".form__save-button");
 const profileFormElement = document.forms["profile-form"];
 const nameInput = profileFormElement.querySelector("[name='name']");
@@ -37,14 +45,19 @@ const jobInput = profileFormElement.querySelector("[name='job']");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const placesList = document.querySelector(".places__list");
+
+function addPlace() {
+  placeModal.classList.add("modal_opened");
+}
+
 function editProfile() {
   profileModal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-function closeEditProfileForm() {
-  profileModal.classList.remove("modal_opened");
+function closeForm(e) {
+  e.target.closest(".modal").classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
@@ -68,10 +81,11 @@ function getCardElement(data) {
   return cardElement;
 }
 
-for (let card of initialCards) {
-  placesList.append(getCardElement(card));
-}
+initialCards.forEach((card) => placesList.append(getCardElement(card)));
 
 editProfileButton.addEventListener("click", editProfile);
-closeEditProfileFormButton.addEventListener("click", closeEditProfileForm);
+closeEditProfileFormButton.addEventListener("click", closeForm);
+closeAddPlaceFormButton.addEventListener("click", closeForm);
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+addPlaceButton.addEventListener("click", addPlace);

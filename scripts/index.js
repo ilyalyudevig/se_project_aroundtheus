@@ -27,6 +27,10 @@ const initialCards = [
 
 const profileModal = document.querySelector(".page__profile-modal");
 const placeModal = document.querySelector(".page__place-modal");
+const imageModal = document.querySelector(".modal-image");
+
+const modalImageElement = document.querySelector(".modal-image__image");
+const modalImageTitle = document.querySelector(".modal-image__title");
 
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
@@ -36,6 +40,9 @@ const closeEditProfileFormButton = profileModal.querySelector(
 );
 const closeAddPlaceFormButton = placeModal.querySelector(
   ".modal__close-button"
+);
+const closeImageModalButton = imageModal.querySelector(
+  ".modal-image__close-button"
 );
 
 const profileFormElement = document.forms["profile-form"];
@@ -75,6 +82,9 @@ function closeForm(evt) {
   evt.target.closest(".modal").classList.remove("modal_opened");
 }
 
+function closeModalImage(evt) {
+  evt.target.closest(".modal-image").classList.remove("modal-image_opened");
+}
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -110,6 +120,7 @@ function getCardElement(data) {
 
   likeButton.addEventListener("click", handleLikeClick);
   trashButton.addEventListener("click", handleTrashClick);
+  cardImage.addEventListener("click", handleImageClick);
 
   return cardElement;
 }
@@ -124,13 +135,22 @@ function handleTrashClick(evt) {
   evt.target.parentElement.remove();
 }
 
+function handleImageClick(evt) {
+  evt.preventDefault();
+  imageModal.classList.add("modal-image_opened");
+  modalImageElement.src = evt.target.src;
+  modalImageTitle.textContent = evt.target.alt;
+  console.log(evt.target);
+}
+
 renderCards(initialCards);
 
 editProfileButton.addEventListener("click", editProfile);
+addPlaceButton.addEventListener("click", addPlace);
+
 closeEditProfileFormButton.addEventListener("click", closeForm);
 closeAddPlaceFormButton.addEventListener("click", closeForm);
+closeImageModalButton.addEventListener("click", closeModalImage);
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
-
-addPlaceButton.addEventListener("click", addPlace);

@@ -140,7 +140,6 @@ function handleImageClick(evt) {
   imageModal.classList.add("modal-image_opened");
   modalImageElement.src = evt.target.src;
   modalImageTitle.textContent = evt.target.alt;
-  console.log(evt.target);
 }
 
 renderCards(initialCards);

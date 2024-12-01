@@ -85,6 +85,7 @@ function closeForm(evt) {
 function closeModalImage(evt) {
   evt.target.closest(".modal-image").classList.remove("modal-image_opened");
 }
+
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;

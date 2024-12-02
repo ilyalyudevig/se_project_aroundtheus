@@ -100,12 +100,13 @@
   }
 
   .modal__container_preview {
+    max-width: min-content;
     padding: 0;
   }
 
   .modal__title {
-    margin: 25px 0 75px;
     font-size: 18px;
+    margin: 25px 0 75px;
   }
 
   .modal__title_preview {

@@ -176,3 +176,17 @@ closeButtons.forEach((button) => {
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
+
+Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target === modal) {
+      closeModal(modal);
+    }
+  });
+
+  modal.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closeModal(modal);
+    }
+  });
+});

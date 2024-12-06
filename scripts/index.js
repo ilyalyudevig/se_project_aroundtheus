@@ -78,9 +78,9 @@ function addPlace() {
 }
 
 function editProfile() {
-  openModal(profileModal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  openModal(profileModal);
 }
 
 function handleProfileFormSubmit(evt) {

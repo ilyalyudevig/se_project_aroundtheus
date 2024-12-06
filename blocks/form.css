@@ -12,7 +12,6 @@
 }
 
 .form__input {
-  margin-bottom: 30px;
   padding: 0;
   font-family: "Inter", "Arial", sans-serif;
   font-size: 14px;
@@ -27,6 +26,26 @@
   padding-bottom: 9px;
 }
 
+.form__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
+.form__input-error-container {
+  height: 30px;
+}
+
+.form__input-error {
+  margin: 5px 0 0;
+  color: #ff0000;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  max-width: 358px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .form__save-button {
   margin: 18px 0 36px;
   padding: 14px 0;
@@ -37,9 +56,17 @@
   color: #fff;
   background-color: #000;
   border-radius: 2px;
-  border: none;
+  border: 1px solid #000;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form__save-button_inactive {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
 }
 
 .form__save-button:hover {
@@ -50,5 +77,9 @@
   .form__save-button {
     margin: 15px 0 25px;
     font-size: 14px;
+  }
+
+  .form__input-error {
+    max-width: 238px;
   }
 }

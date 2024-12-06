@@ -65,12 +65,20 @@ function renderCards(cardsArray) {
   cardsArray.forEach((card) => renderCard(card));
 }
 
+function handleEscapeDown(evt) {
+  if (evt.key === "Escape") {
+    closeModal(evt.currentTarget);
+  }
+}
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("keydown", handleEscapeDown);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  modal.removeEventListener("keydown", handleEscapeDown);
 }
 
 function addPlace() {
@@ -180,12 +188,6 @@ addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
 Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
   modal.addEventListener("click", (evt) => {
     if (evt.target === modal) {
-      closeModal(modal);
-    }
-  });
-
-  modal.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
       closeModal(modal);
     }
   });

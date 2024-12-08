@@ -67,18 +67,20 @@ function renderCards(cardsArray) {
 
 function handleEscapeDown(evt) {
   if (evt.key === "Escape") {
-    closeModal(evt.currentTarget);
+    closeModal(evt.target);
   }
 }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
-  modal.addEventListener("keydown", handleEscapeDown);
+  document.querySelector(".page").addEventListener("keydown", handleEscapeDown);
 }
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  modal.removeEventListener("keydown", handleEscapeDown);
+function closeModal() {
+  document.querySelector(".modal_opened").classList.remove("modal_opened");
+  document
+    .querySelector(".page")
+    .removeEventListener("keydown", handleEscapeDown);
 }
 
 function addPlace() {
@@ -95,7 +97,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeModal(profileModal);
+  closeModal();
 }
 
 function handleAddPlaceFormSubmit(evt) {
@@ -188,7 +190,7 @@ addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
 Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
   modal.addEventListener("click", (evt) => {
     if (evt.target === modal) {
-      closeModal(modal);
+      closeModal();
     }
   });
 });

@@ -69,7 +69,7 @@ function renderCards(cardsArray) {
 
 function handleEscapeDown(evt) {
   if (evt.key === "Escape") {
-    closeModal(evt.target);
+    closeModal();
   }
 }
 
@@ -109,7 +109,7 @@ function handleAddPlaceFormSubmit(evt) {
   };
 
   renderCard(newCard);
-  closeModal(placeModal);
+  closeModal();
   placeTitleInput.value = "";
   imgURLInput.value = "";
 }
@@ -143,7 +143,7 @@ function handleLikeClick(evt) {
 
 function handleTrashClick(evt) {
   evt.preventDefault();
-  evt.target.parentElement.remove();
+  evt.target.closest.remove();
 }
 
 function handleImageClick(evt) {
@@ -152,24 +152,6 @@ function handleImageClick(evt) {
   modalImageElement.src = evt.target.src;
   modalImageElement.alt = evt.target.name;
   modalImageTitle.textContent = evt.target.name;
-
-  const modalImageContainer = imageModal.querySelector(".modal__container");
-  modalImageContainer.classList.add("modal__container_preview");
-
-  const closeModalImageButtonContainer = modalImageContainer.querySelector(
-    ".modal__close-button-container"
-  );
-  closeModalImageButtonContainer.classList.add(
-    "modal__close-button-container_preview"
-  );
-
-  const closeModalImageButton = modalImageContainer.querySelector(
-    ".modal__close-button"
-  );
-  closeModalImageButton.classList.add("modal__close-button_preview");
-
-  modalImageElement.classList.add("modal__image_preview");
-  modalImageTitle.classList.add("modal__title_preview");
 
   openModal(imageModal);
 }
@@ -180,8 +162,7 @@ editProfileButton.addEventListener("click", editProfile);
 addPlaceButton.addEventListener("click", addPlace);
 
 closeButtons.forEach((button) => {
-  const modal = button.closest(".modal");
-  button.addEventListener("click", () => closeModal(modal));
+  button.addEventListener("click", closeModal);
 });
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);

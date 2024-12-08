@@ -25,6 +25,8 @@ const initialCards = [
   },
 ];
 
+const pageElement = document.querySelector(".page");
+
 const profileModal = document.querySelector(".page__profile-modal");
 const placeModal = document.querySelector(".page__place-modal");
 const imageModal = document.querySelector(".page__image-modal");
@@ -73,14 +75,12 @@ function handleEscapeDown(evt) {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
-  document.querySelector(".page").addEventListener("keydown", handleEscapeDown);
+  pageElement.addEventListener("keydown", handleEscapeDown);
 }
 
 function closeModal() {
   document.querySelector(".modal_opened").classList.remove("modal_opened");
-  document
-    .querySelector(".page")
-    .removeEventListener("keydown", handleEscapeDown);
+  pageElement.removeEventListener("keydown", handleEscapeDown);
 }
 
 function addPlace() {

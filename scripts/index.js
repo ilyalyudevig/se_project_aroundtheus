@@ -143,7 +143,7 @@ function handleLikeClick(evt) {
 
 function handleTrashClick(evt) {
   evt.preventDefault();
-  evt.target.closest.remove();
+  evt.target.closest(".card").remove();
 }
 
 function handleImageClick(evt) {

@@ -1,3 +1,6 @@
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -42,11 +45,6 @@ const addPlaceButton = document.querySelector(".profile__add-button");
 const profileFormElement = document.forms["profile-form"];
 const addPlaceFormElement = document.forms["place-form"];
 
-const editProfileFormSaveButton =
-  profileFormElement.querySelector(".form__save-button");
-const addPlaceFormSaveButton =
-  addPlaceFormElement.querySelector(".form__save-button");
-
 const nameInput = profileFormElement.querySelector("[name='name']");
 const jobInput = profileFormElement.querySelector("[name='job']");
 
@@ -59,7 +57,8 @@ const profileJob = document.querySelector(".profile__job");
 const placesList = document.querySelector(".places__list");
 
 function renderCard(item, method = "prepend") {
-  const cardElement = getCardElement(item);
+  const card = new Card(item, "#card-template", handleImageClick);
+  const cardElement = card.generateCard();
   placesList[method](cardElement);
 }
 
@@ -114,44 +113,10 @@ function handleAddPlaceFormSubmit(evt) {
   imgURLInput.value = "";
 }
 
-function getCardElement(data) {
-  const cardElement = placesList
-    .querySelector("#card-template")
-    .content.cloneNode(true);
-  const cardTitle = cardElement.querySelector(".card__title");
-  const cardImage = cardElement.querySelector(".card__image");
-
-  cardTitle.textContent = data.name;
-  cardImage.setAttribute("src", data.link);
-  cardImage.setAttribute("alt", data.name);
-  cardImage.setAttribute("name", data.name);
-
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const trashButton = cardElement.querySelector(".card__trash");
-
-  likeButton.addEventListener("click", handleLikeClick);
-  trashButton.addEventListener("click", handleTrashClick);
-  cardImage.addEventListener("click", handleImageClick);
-
-  return cardElement;
-}
-
-function handleLikeClick(evt) {
-  evt.preventDefault();
-  evt.target.classList.toggle("card__like-button_checked");
-}
-
-function handleTrashClick(evt) {
-  evt.preventDefault();
-  evt.target.closest(".card").remove();
-}
-
-function handleImageClick(evt) {
-  evt.preventDefault();
-
-  modalImageElement.src = evt.target.src;
-  modalImageElement.alt = evt.target.name;
-  modalImageTitle.textContent = evt.target.name;
+function handleImageClick(data) {
+  modalImageElement.src = data.link;
+  modalImageElement.alt = data.name;
+  modalImageTitle.textContent = data.name;
 
   openModal(imageModal);
 }
@@ -174,4 +139,17 @@ Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
       closeModal();
     }
   });
+});
+
+const formsValidationSettings = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
+
+Array.from(document.forms).forEach((form) => {
+  const formValidator = new FormValidator(formsValidationSettings, form);
+  formValidator.enableValidation();
 });

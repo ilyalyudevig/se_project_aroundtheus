@@ -73,6 +73,9 @@ function handleEscapeDown(evt) {
 }
 
 function openModal(modal) {
+  const validator = new FormValidator(formValidationSettings, modal);
+  validator.validate();
+
   modal.classList.add("modal_opened");
   pageElement.addEventListener("keydown", handleEscapeDown);
 }
@@ -92,11 +95,17 @@ function editProfile() {
   openModal(profileModal);
 }
 
+function resetValidation(form) {
+  const validator = new FormValidator(formValidationSettings, form);
+  validator.resetValidation();
+}
+
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closeModal();
+  resetValidation(evt.target);
 }
 
 function handleAddPlaceFormSubmit(evt) {
@@ -109,6 +118,8 @@ function handleAddPlaceFormSubmit(evt) {
 
   renderCard(newCard);
   closeModal();
+  resetValidation(evt.target);
+
   placeTitleInput.value = "";
   imgURLInput.value = "";
 }
@@ -141,7 +152,7 @@ Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
   });
 });
 
-const formsValidationSettings = {
+const formValidationSettings = {
   inputSelector: ".form__input",
   submitButtonSelector: ".form__save-button",
   inactiveButtonClass: "form__save-button_inactive",
@@ -150,6 +161,6 @@ const formsValidationSettings = {
 };
 
 Array.from(document.forms).forEach((form) => {
-  const formValidator = new FormValidator(formsValidationSettings, form);
+  const formValidator = new FormValidator(formValidationSettings, form);
   formValidator.enableValidation();
 });

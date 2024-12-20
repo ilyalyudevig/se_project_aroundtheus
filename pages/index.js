@@ -73,9 +73,6 @@ function handleEscapeDown(evt) {
 }
 
 function openModal(modal) {
-  const validator = new FormValidator(formValidationSettings, modal);
-  validator.validate();
-
   modal.classList.add("modal_opened");
   pageElement.addEventListener("keydown", handleEscapeDown);
 }
@@ -95,17 +92,12 @@ function editProfile() {
   openModal(profileModal);
 }
 
-function resetValidation(form) {
-  const validator = new FormValidator(formValidationSettings, form);
-  validator.resetValidation();
-}
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closeModal();
-  resetValidation(evt.target);
+  formValidators["profile-form"].resetValidation();
 }
 
 function handleAddPlaceFormSubmit(evt) {
@@ -118,10 +110,9 @@ function handleAddPlaceFormSubmit(evt) {
 
   renderCard(newCard);
   closeModal();
-  resetValidation(evt.target);
 
-  placeTitleInput.value = "";
-  imgURLInput.value = "";
+  evt.target.reset();
+  formValidators["place-form"].toggleButtonState();
 }
 
 function handleImageClick(data) {
@@ -160,7 +151,18 @@ const formValidationSettings = {
   errorClass: "form__input-error_active",
 };
 
-Array.from(document.forms).forEach((form) => {
-  const formValidator = new FormValidator(formValidationSettings, form);
-  formValidator.enableValidation();
-});
+const formValidators = {};
+
+const enableValidation = (settings) => {
+  const formList = Array.from(document.forms);
+
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement);
+    validator.enableValidation();
+
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+  });
+};
+
+enableValidation(formValidationSettings);

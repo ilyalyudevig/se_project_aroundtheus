@@ -1,0 +1,42 @@
+{
+  "name": "around-the-us",
+  "version": "0.0.1",
+  "description": "TripleTen web dev project",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyalyudevig/se_project_aroundtheus.git"
+  },
+  "author": "Ilya Lyudevig",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.18.9",
+    "@babel/preset-env": "7.18.9",
+    "autoprefixer": "10.4.7",
+    "babel-loader": "8.2.5",
+    "clean-webpack-plugin": "4.0.0",
+    "css-loader": "6.7.1",
+    "cssnano": "5.1.12",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.6.1",
+    "postcss-loader": "7.0.1",
+    "webpack": "5.76.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.9.3"
+  },
+  "dependencies": {
+    "core-js": "3.23.5"
+  },
+  "bugs": {
+    "url": "https://github.com/ilyalyudevig/se_project_aroundtheus/issues"
+  },
+  "homepage": "https://github.com/ilyalyudevig/se_project_aroundtheus#readme"
+}

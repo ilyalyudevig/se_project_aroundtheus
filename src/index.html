@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around The U.S.</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <header class="header">
       <img
         class="header__logo"
-        src="./images/around-the-us-logo.svg"
+        src="<%=require('./images/around-the-us-logo.svg')%>"
         alt="Around The US logo"
       />
     </header>
@@ -19,7 +18,7 @@
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/jacques-cousteau.png"
+          src="<%=require('./images/jacques-cousteau.png')%>"
           alt="Profile avatar"
         />
         <div class="profile__info-container">
@@ -43,7 +42,7 @@
         <ul class="places__list">
           <template id="card-template">
             <li class="places__card card">
-              <img class="card__trash" src="./images/trash.svg" />
+              <img class="card__trash" src="<%=require('./images/trash.svg')%>" />
               <img class="card__image" />
               <div class="card__text-container">
                 <h2 class="card__title"></h2>
@@ -173,6 +172,5 @@
         <h2 class="modal__title modal__title_preview"></h2>
       </div>
     </div>
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>

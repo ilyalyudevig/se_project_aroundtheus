@@ -1,4 +1,4 @@
-import { selectors } from "../utils/constants .js";
+import { selectors } from "../utils/constants.js";
 
 import Popup from "./Popup.js";
 

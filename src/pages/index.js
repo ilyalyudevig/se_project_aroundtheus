@@ -9,8 +9,8 @@ import { UserInfo } from "../components/UserInfo.js";
 
 import "./index.css";
 
-import { initialCards } from "../utils/constants .js";
-import { selectors } from "../utils/constants .js";
+import { initialCards } from "../utils/constants.js";
+import { selectors } from "../utils/constants.js";
 
 const {
   profileModalSelector,

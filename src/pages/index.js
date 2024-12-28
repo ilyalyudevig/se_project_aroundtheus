@@ -1,45 +1,25 @@
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
+
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+
+import { UserInfo } from "../components/UserInfo.js";
 
 import "./index.css";
 
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+import { initialCards } from "../utils/constants .js";
+import { selectors } from "../utils/constants .js";
 
-const pageElement = document.querySelector(".page");
-
-const profileModal = document.querySelector(".page__profile-modal");
-const placeModal = document.querySelector(".page__place-modal");
-const imageModal = document.querySelector(".page__image-modal");
-
-const closeButtons = document.querySelectorAll(".modal__close-button");
-
-const modalImageElement = imageModal.querySelector(".modal__image");
-const modalImageTitle = imageModal.querySelector(".modal__title");
+const {
+  profileModalSelector,
+  placeModalSelector,
+  imageModalSelector,
+  profileNameSelector,
+  profileJobSelector,
+  cardsListSelector,
+} = selectors;
 
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
@@ -53,94 +33,91 @@ const jobInput = profileFormElement.querySelector("[name='job']");
 const placeTitleInput = addPlaceFormElement.querySelector("[name='title']");
 const imgURLInput = addPlaceFormElement.querySelector("[name='url']");
 
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
+const getCard = (item) => {
+  return new Card(item, "#card-template", handleImageClick);
+};
 
-const placesList = document.querySelector(".places__list");
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = getCard(item);
+      const cardElement = card.generateCard();
+      cardsList.addItem(cardElement, { method: "prepend" });
+    },
+  },
+  cardsListSelector
+);
 
-function renderCard(item, method = "prepend") {
-  const card = new Card(item, "#card-template", handleImageClick);
-  const cardElement = card.generateCard();
-  placesList[method](cardElement);
-}
+cardsList.renderItems();
 
-function renderCards(cardsArray) {
-  cardsArray.forEach((card) => renderCard(card));
-}
+const profilePopup = new PopupWithForm(
+  profileModalSelector,
+  handleProfileFormSubmit
+);
 
-function handleEscapeDown(evt) {
-  if (evt.key === "Escape") {
-    closeModal();
-  }
-}
+profilePopup.setEventListeners();
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  pageElement.addEventListener("keydown", handleEscapeDown);
-}
+const addPlacePopup = new PopupWithForm(
+  placeModalSelector,
+  handleAddPlaceFormSubmit
+);
 
-function closeModal() {
-  document.querySelector(".modal_opened").classList.remove("modal_opened");
-  pageElement.removeEventListener("keydown", handleEscapeDown);
-}
+addPlacePopup.setEventListeners();
 
 function addPlace() {
-  openModal(placeModal);
+  addPlacePopup.open();
 }
+
+const userInfo = new UserInfo({
+  nameSelector: profileNameSelector,
+  jobSelector: profileJobSelector,
+});
 
 function editProfile() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  openModal(profileModal);
+  const profileInfo = userInfo.getUserInfo();
+  const { name, job } = profileInfo;
+  nameInput.value = name;
+  jobInput.value = job;
+  profilePopup.open();
 }
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closeModal();
+function handleProfileFormSubmit() {
+  userInfo.setUserInfo({ name: nameInput.value, job: jobInput.value });
+  profilePopup.close();
   formValidators["profile-form"].resetValidation();
 }
 
-function handleAddPlaceFormSubmit(evt) {
-  evt.preventDefault();
-
+function handleAddPlaceFormSubmit() {
   const newCard = {
     name: placeTitleInput.value,
     link: imgURLInput.value,
   };
 
-  renderCard(newCard);
-  closeModal();
+  const card = getCard(newCard);
+  const cardElement = card.generateCard();
 
-  evt.target.reset();
+  cardsList.addItem(cardElement, { method: "prepend" });
+
+  addPlacePopup.close();
+
   formValidators["place-form"].toggleButtonState();
 }
 
+const imagePopup = new PopupWithImage(imageModalSelector);
+imagePopup.setEventListeners();
+
 function handleImageClick(data) {
-  modalImageElement.src = data.link;
-  modalImageElement.alt = data.name;
-  modalImageTitle.textContent = data.name;
-
-  openModal(imageModal);
+  imagePopup.open(data);
 }
-
-renderCards(initialCards);
 
 editProfileButton.addEventListener("click", editProfile);
 addPlaceButton.addEventListener("click", addPlace);
 
-closeButtons.forEach((button) => {
-  button.addEventListener("click", closeModal);
-});
-
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-addPlaceFormElement.addEventListener("submit", handleAddPlaceFormSubmit);
-
 Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
   modal.addEventListener("click", (evt) => {
     if (evt.target === modal) {
-      closeModal();
+      modal.classList.remove("modal_opened");
     }
   });
 });

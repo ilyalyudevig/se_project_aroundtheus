@@ -9,20 +9,29 @@ export default class Popup {
   }
 
   open() {
+    console.log(this);
     this._popup.classList.add("modal_opened");
     this._page.addEventListener("keydown", this._handleEscClose);
+    this._page.addEventListener("click", this._handleOverlayClick);
   }
 
   close() {
     this._popup.classList.remove("modal_opened");
     this._page.removeEventListener("keydown", this._handleEscClose);
+    this._page.removeEventListener("click", this._handleOverlayClick);
   }
 
-  _handleEscClose(evt) {
+  _handleEscClose = (evt) => {
     if (evt.key === "Escape") {
-      document.querySelector(".modal_opened").classList.remove("modal_opened");
+      this.close();
     }
-  }
+  };
+
+  _handleOverlayClick = (evt) => {
+    if (evt.target === this._popup) {
+      this.close();
+    }
+  };
 
   setEventListeners() {
     this._closeButton = this._popup.querySelector(closeModalButtonSelector);

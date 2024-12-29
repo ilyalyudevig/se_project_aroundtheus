@@ -114,14 +114,6 @@ function handleImageClick(data) {
 editProfileButton.addEventListener("click", editProfile);
 addPlaceButton.addEventListener("click", addPlace);
 
-Array.from(document.querySelectorAll(".modal")).forEach((modal) => {
-  modal.addEventListener("click", (evt) => {
-    if (evt.target === modal) {
-      modal.classList.remove("modal_opened");
-    }
-  });
-});
-
 const formValidationSettings = {
   inputSelector: ".form__input",
   submitButtonSelector: ".form__save-button",

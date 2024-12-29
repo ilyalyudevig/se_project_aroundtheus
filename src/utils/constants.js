@@ -38,4 +38,12 @@ const selectors = {
   modalImageTitleSelector: ".modal__title",
 };
 
-export { initialCards, selectors };
+const formValidationSettings = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
+
+export { initialCards, selectors, formValidationSettings };

@@ -9,8 +9,11 @@ import { UserInfo } from "../components/UserInfo.js";
 
 import "./index.css";
 
-import { initialCards } from "../utils/constants.js";
-import { selectors } from "../utils/constants.js";
+import {
+  initialCards,
+  selectors,
+  formValidationSettings,
+} from "../utils/constants.js";
 
 const {
   profileModalSelector,
@@ -113,14 +116,6 @@ function handleImageClick(data) {
 
 editProfileButton.addEventListener("click", editProfile);
 addPlaceButton.addEventListener("click", addPlace);
-
-const formValidationSettings = {
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__save-button",
-  inactiveButtonClass: "form__save-button_inactive",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
-};
 
 const formValidators = {};
 

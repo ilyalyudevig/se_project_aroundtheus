@@ -7,11 +7,11 @@ const { modalImageSelector, modalImageTitleSelector } = selectors;
 export class PopupWithImage extends Popup {
   constructor(selector) {
     super({ selector });
+    this._imageElement = this._popup.querySelector(modalImageSelector);
+    this._imageTitle = this._popup.querySelector(modalImageTitleSelector);
   }
 
   open({ name, link }) {
-    this._imageElement = this._popup.querySelector(modalImageSelector);
-    this._imageTitle = this._popup.querySelector(modalImageTitleSelector);
     this._imageElement.src = link;
     this._imageElement.alt = name;
     this._imageTitle.textContent = name;

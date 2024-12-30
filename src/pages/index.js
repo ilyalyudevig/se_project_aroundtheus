@@ -27,25 +27,17 @@ const {
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
 
-const profileFormElement = document.forms["profile-form"];
-const addPlaceFormElement = document.forms["place-form"];
-
-const nameInput = profileFormElement.querySelector("[name='name']");
-const jobInput = profileFormElement.querySelector("[name='job']");
-
-const placeTitleInput = addPlaceFormElement.querySelector("[name='title']");
-const imgURLInput = addPlaceFormElement.querySelector("[name='url']");
-
-const getCard = (item) => {
-  return new Card(item, "#card-template", handleImageClick);
+const getCardElement = (item) => {
+  const card = new Card(item, "#card-template", handleImageClick);
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
 const cardsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = getCard(item);
-      const cardElement = card.generateCard();
+      const cardElement = getCardElement(item);
       cardsList.addItem(cardElement, { method: "prepend" });
     },
   },
@@ -60,6 +52,10 @@ const profilePopup = new PopupWithForm(
 );
 
 profilePopup.setEventListeners();
+const profileFormElement = profilePopup.getForm();
+
+const nameInput = profileFormElement.querySelector("[name='name']");
+const jobInput = profileFormElement.querySelector("[name='job']");
 
 const addPlacePopup = new PopupWithForm(
   placeModalSelector,
@@ -69,6 +65,7 @@ const addPlacePopup = new PopupWithForm(
 addPlacePopup.setEventListeners();
 
 function addPlace() {
+  formValidators["place-form"].resetValidation();
   addPlacePopup.open();
 }
 
@@ -85,20 +82,15 @@ function editProfile() {
   profilePopup.open();
 }
 
-function handleProfileFormSubmit() {
-  userInfo.setUserInfo({ name: nameInput.value, job: jobInput.value });
+function handleProfileFormSubmit({ name, job }) {
+  userInfo.setUserInfo({ name, job });
   profilePopup.close();
   formValidators["profile-form"].resetValidation();
 }
 
-function handleAddPlaceFormSubmit() {
-  const newCard = {
-    name: placeTitleInput.value,
-    link: imgURLInput.value,
-  };
-
-  const card = getCard(newCard);
-  const cardElement = card.generateCard();
+function handleAddPlaceFormSubmit({ title, url }) {
+  const newCard = { name: title, link: url };
+  const cardElement = getCardElement(newCard);
 
   cardsList.addItem(cardElement, { method: "prepend" });
 

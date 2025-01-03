@@ -7,6 +7,9 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 
 import { UserInfo } from "../components/UserInfo.js";
 
+import Api from "../components/Api.js";
+import { token } from "../utils/constants.js";
+
 import "./index.css";
 
 import {
@@ -27,24 +30,33 @@ const {
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: token,
+  },
+});
+
 const getCardElement = (item) => {
   const card = new Card(item, "#card-template", handleImageClick);
   const cardElement = card.generateCard();
   return cardElement;
 };
 
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = getCardElement(item);
-      cardsList.addItem(cardElement, { method: "prepend" });
+api.getInitialCards().then((cards) => {
+  const cardsList = new Section(
+    {
+      items: cards,
+      renderer: (item) => {
+        const cardElement = getCardElement(item);
+        cardsList.addItem(cardElement, { method: "prepend" });
+      },
     },
-  },
-  cardsListSelector
-);
+    cardsListSelector
+  );
 
-cardsList.renderItems();
+  cardsList.renderItems();
+});
 
 const profilePopup = new PopupWithForm(
   profileModalSelector,

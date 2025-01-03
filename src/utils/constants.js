@@ -46,4 +46,6 @@ const formValidationSettings = {
   errorClass: "form__input-error_active",
 };
 
-export { initialCards, selectors, formValidationSettings };
+const token = "19c5994b-226e-4f78-a8d2-c207c10029fd";
+
+export { initialCards, selectors, formValidationSettings, token };

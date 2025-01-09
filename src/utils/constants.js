@@ -32,10 +32,12 @@ const selectors = {
   imageModalSelector: ".page__image-modal",
   profileNameSelector: ".profile__name",
   profileJobSelector: ".profile__job",
+  profileImageSelector: ".profile__avatar",
   cardsListSelector: ".places__list",
   closeModalButtonSelector: ".modal__close-button",
   modalImageSelector: ".modal__image",
   modalImageTitleSelector: ".modal__title",
+  deleteCardModalSelector: ".page__delete-card-modal",
 };
 
 const formValidationSettings = {

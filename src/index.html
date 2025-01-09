@@ -23,8 +23,8 @@
         />
         <div class="profile__info-container">
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
-            <p class="profile__job">Explorer</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__job"></p>
           </div>
           <button
             class="profile__edit-button"
@@ -173,6 +173,27 @@
           alt="Preview image"
         />
         <h2 class="modal__title modal__title_preview"></h2>
+      </div>
+    </div>
+    <div class="modal page__delete-card-modal">
+      <div class="modal__container">
+        <div class="modal__close-button-container">
+          <button
+            class="modal__close-button"
+            type="button"
+            aria-label="Close"
+          ></button>
+        </div>
+        <h2 class="modal__title">Are you sure?</h2>
+        <form class="modal__form form" name="confirm-delete-form">
+          <button
+            class="form__save-button"
+            type="submit"
+            aria-label="Confirm delete"
+          >
+            Yes
+          </button>
+        </form>
       </div>
     </div>
   </body>

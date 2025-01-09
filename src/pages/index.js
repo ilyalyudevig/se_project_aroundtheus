@@ -4,6 +4,7 @@ import { Section } from "../components/Section.js";
 
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
+import { DeleteCardPopup } from "../components/DeleteCardPopup.js";
 
 import { UserInfo } from "../components/UserInfo.js";
 
@@ -12,11 +13,7 @@ import { token } from "../utils/constants.js";
 
 import "./index.css";
 
-import {
-  initialCards,
-  selectors,
-  formValidationSettings,
-} from "../utils/constants.js";
+import { selectors, formValidationSettings } from "../utils/constants.js";
 
 const {
   profileModalSelector,
@@ -24,7 +21,9 @@ const {
   imageModalSelector,
   profileNameSelector,
   profileJobSelector,
+  profileImageSelector,
   cardsListSelector,
+  deleteCardModalSelector,
 } = selectors;
 
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -38,24 +37,28 @@ const api = new Api({
 });
 
 const getCardElement = (item) => {
-  const card = new Card(item, "#card-template", handleImageClick);
+  const card = new Card(
+    item,
+    "#card-template",
+    handleImageClick,
+    openDeleteCardPopup
+  );
   const cardElement = card.generateCard();
   return cardElement;
 };
 
-api.getInitialCards().then((cards) => {
-  const cardsList = new Section(
-    {
-      items: cards,
-      renderer: (item) => {
-        const cardElement = getCardElement(item);
-        cardsList.addItem(cardElement, { method: "prepend" });
-      },
+const cardsList = new Section(
+  {
+    renderer: (item) => {
+      const cardElement = getCardElement(item);
+      cardsList.addItem(cardElement, { method: "prepend" });
     },
-    cardsListSelector
-  );
+  },
+  cardsListSelector
+);
 
-  cardsList.renderItems();
+api.getInitialCards().then((cards) => {
+  cardsList.renderItems(cards.reverse());
 });
 
 const profilePopup = new PopupWithForm(
@@ -84,6 +87,11 @@ function addPlace() {
 const userInfo = new UserInfo({
   nameSelector: profileNameSelector,
   jobSelector: profileJobSelector,
+  imageSelector: profileImageSelector,
+});
+
+api.getUserInfo().then((res) => {
+  userInfo.setUserInfo({ name: res.name, job: res.about });
 });
 
 function editProfile() {
@@ -95,6 +103,7 @@ function editProfile() {
 }
 
 function handleProfileFormSubmit({ name, job }) {
+  api.editUserInfo({ name, job });
   userInfo.setUserInfo({ name, job });
   profilePopup.close();
   formValidators["profile-form"].resetValidation();
@@ -102,12 +111,10 @@ function handleProfileFormSubmit({ name, job }) {
 
 function handleAddPlaceFormSubmit({ title, url }) {
   const newCard = { name: title, link: url };
-  const cardElement = getCardElement(newCard);
 
-  cardsList.addItem(cardElement, { method: "prepend" });
-
+  api.addCard(newCard);
+  cardsList.renderItems([newCard]);
   addPlacePopup.close();
-
   formValidators["place-form"].toggleButtonState();
 }
 
@@ -116,6 +123,22 @@ imagePopup.setEventListeners();
 
 function handleImageClick(data) {
   imagePopup.open(data);
+}
+
+const deleteCardPopup = new DeleteCardPopup(
+  deleteCardModalSelector,
+  deleteCard
+);
+deleteCardPopup.setEventListeners();
+
+function openDeleteCardPopup({ cardId }) {
+  deleteCardPopup.setCardId(cardId);
+  deleteCardPopup.open();
+}
+
+function deleteCard(cardId) {
+  document.querySelector(`#${cardId}`).remove();
+  api.deleteCard({ cardId });
 }
 
 editProfileButton.addEventListener("click", editProfile);

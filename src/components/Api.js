@@ -90,5 +90,24 @@ export default class Api {
       });
   }
 
-  // other methods for working with the API
+  likeCard({ cardId, method }) {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${cardId.slice(
+        5
+      )}/likes`,
+      {
+        method: method,
+        headers: this._headers,
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }

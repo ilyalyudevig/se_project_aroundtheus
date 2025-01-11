@@ -27,17 +27,23 @@ export class Card {
   }
 
   _setCardContent() {
-    const { name, link, _id } = this._data;
-    this._cardItem.id = "card_" + `${_id}`;
+    const { name, link, _id, isLiked } = this._data;
+    this._cardItem.id = `card_${_id}`;
     this._cardImageElement.src = link;
     this._cardImageElement.alt = name;
     this._cardImageElement.name = name;
     this._title.textContent = name;
+    this._cardItem.isLiked = isLiked;
   }
 
   _handleLikeButton(evt) {
     evt.preventDefault();
     evt.target.classList.toggle(this._selectors.likeButtonActive);
+    this._handleLikeClick({
+      cardId: this._cardItem.id,
+      method: this._cardItem.isLiked ? "DELETE" : "PUT",
+    });
+    this._cardItem.isLiked = !this._cardItem.isLiked;
   }
 
   _setEventListeners() {
@@ -71,6 +77,9 @@ export class Card {
     this._setCardContent();
     this._setEventListeners();
 
+    if (this._data.isLiked) {
+      this._likeButton.classList.toggle(this._selectors.likeButtonActive);
+    }
     return this._cardElement;
   }
 }

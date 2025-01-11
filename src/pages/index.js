@@ -41,7 +41,8 @@ const getCardElement = (item) => {
     item,
     "#card-template",
     handleImageClick,
-    openDeleteCardPopup
+    openDeleteCardPopup,
+    handleLikeClick
   );
   const cardElement = card.generateCard();
   return cardElement;
@@ -139,6 +140,10 @@ function openDeleteCardPopup({ cardId }) {
 function deleteCard(cardId) {
   document.querySelector(`#${cardId}`).remove();
   api.deleteCard({ cardId });
+}
+
+function handleLikeClick({ cardId, method }) {
+  api.likeCard({ cardId, method });
 }
 
 editProfileButton.addEventListener("click", editProfile);

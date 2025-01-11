@@ -16,11 +16,14 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
-          class="profile__avatar"
-          src="<%=require('./images/jacques-cousteau.png')%>"
-          alt="Profile avatar"
-        />
+        <div class="profile__avatar-container">
+          <img
+            class="profile__avatar"
+            src="<%=require('./images/jacques-cousteau.png')%>"
+            alt="Profile avatar"
+          />
+          <div class="profile__edit-avatar-icon-container"></div>
+        </div>
         <div class="profile__info-container">
           <div class="profile__info">
             <h1 class="profile__name"></h1>

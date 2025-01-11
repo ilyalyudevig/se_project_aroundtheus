@@ -8,9 +8,40 @@
   align-items: center;
 }
 
+.profile__avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
 .profile__avatar {
   width: 120px;
   border-radius: 50%;
+  position: absolute;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile__avatar-container:hover .profile__avatar {
+  opacity: 0.2;
+}
+
+.profile__edit-avatar-icon-container {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../images/edit-icon.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 26px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.profile__avatar-container:hover .profile__edit-avatar-icon-container {
+  opacity: 1;
 }
 
 .profile__info-container {
@@ -125,7 +156,7 @@
 
   .profile__avatar {
     grid-area: avatar;
-    margin: 0 0 30px;
+    margin: 0;
   }
 
   .profile__info-container {
@@ -134,6 +165,7 @@
     grid-template-columns: 1fr minmax(min-content, 1fr) 1fr;
     grid-template-areas: ". info edit-button";
     text-align: center;
+    margin-top: 30px;
   }
 
   .profile__info {

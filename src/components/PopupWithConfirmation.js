@@ -1,6 +1,6 @@
-import { Popup } from "../components/Popup.js";
+import { Popup } from "./Popup.js";
 
-export class DeleteCardPopup extends Popup {
+export class PopupWithConfirmation extends Popup {
   constructor(selector, deleteCard) {
     super({ selector });
     this._confirmButton = this._popup.querySelector(".form__save-button");

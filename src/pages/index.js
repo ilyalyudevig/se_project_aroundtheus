@@ -3,7 +3,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { DeleteCardPopup } from "../components/DeleteCardPopup.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
 
@@ -41,20 +41,23 @@ const getCardElement = (item) => {
 
 const cardsList = new Section(
   {
-    renderer: (item) => {
-      const cardElement = getCardElement(item);
-      return cardElement;
-    },
+    renderer: (item) => getCardElement(item),
   },
   cardsListSelector
 );
 
+const userInfo = new UserInfo({
+  nameSelector: profileNameSelector,
+  jobSelector: profileJobSelector,
+  profileImageSelector: profileImageSelector,
+});
+
 api.getData().then(({ userInfo: userData, cards }) => {
-  const { name, about: job, avatar: avatarUrl } = userData;
+  const { name, about, avatar } = userData;
   userInfo.setUserInfo({
     name,
-    job,
-    avatarUrl,
+    job: about,
+    avatarUrl: avatar,
   });
   cardsList.renderItems(cards.reverse());
 });
@@ -75,12 +78,6 @@ const addPlacePopup = new PopupWithForm(
 );
 addPlacePopup.setEventListeners();
 
-const userInfo = new UserInfo({
-  nameSelector: profileNameSelector,
-  jobSelector: profileJobSelector,
-  profileImageSelector: profileImageSelector,
-});
-
 const editAvatarPopup = new PopupWithForm(
   editAvatarModalSelector,
   handleEditAvatarSubmit
@@ -92,7 +89,7 @@ const avatarUrlInput = editAvatarForm.querySelector("[name='url']");
 const imagePopup = new PopupWithImage(imageModalSelector);
 imagePopup.setEventListeners();
 
-const deleteCardPopup = new DeleteCardPopup(
+const deleteCardPopup = new PopupWithConfirmation(
   deleteCardModalSelector,
   deleteCard
 );

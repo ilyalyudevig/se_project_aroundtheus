@@ -20,6 +20,13 @@ export class PopupWithForm extends Popup {
     return this._form;
   }
 
+  setButtonText(text) {
+    const submitButton = this._form.querySelector("[type='submit']");
+    if (submitButton) {
+      submitButton.textContent = text;
+    }
+  }
+
   setEventListeners() {
     this._form = this._popup.querySelector(".form");
 

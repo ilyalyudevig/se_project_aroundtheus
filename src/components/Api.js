@@ -1,4 +1,6 @@
-export default class Api {
+import { token } from "../utils/constants.js";
+
+class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -48,6 +50,16 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getData() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()])
+      .then(([userInfo, cards]) => {
+        return { userInfo, cards };
       })
       .catch((err) => {
         console.error(err);
@@ -131,3 +143,10 @@ export default class Api {
       });
   }
 }
+
+export const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: token,
+  },
+});

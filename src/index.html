@@ -17,11 +17,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__avatar-container">
-          <img
-            class="profile__avatar"
-            src="<%=require('./images/jacques-cousteau.png')%>"
-            alt="Profile avatar"
-          />
+          <img class="profile__avatar" src="#" alt="Profile avatar" />
           <div class="profile__edit-avatar-icon-container"></div>
         </div>
         <div class="profile__info-container">
@@ -195,6 +191,42 @@
             aria-label="Confirm delete"
           >
             Yes
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="modal page__edit-avatar-modal">
+      <div class="modal__container">
+        <div class="modal__close-button-container">
+          <button
+            class="modal__close-button"
+            type="button"
+            aria-label="Close"
+          ></button>
+        </div>
+        <h2 class="modal__title modal__title_edit-avatar">
+          Change profile picture
+        </h2>
+        <form class="modal__form form" name="edit-avatar-form">
+          <fieldset class="form__fieldset">
+            <input
+              class="form__input"
+              type="url"
+              name="url"
+              placeholder="URL"
+              required
+              aria-label="Avatar URL"
+            />
+            <div class="form__input-error-container">
+              <p class="form__input-error url-input-error"></p>
+            </div>
+          </fieldset>
+          <button
+            class="form__save-button"
+            type="submit"
+            aria-label="Update avatar"
+          >
+            Save
           </button>
         </form>
       </div>

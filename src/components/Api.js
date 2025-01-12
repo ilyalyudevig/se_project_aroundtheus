@@ -110,4 +110,24 @@ export default class Api {
         console.error(err);
       });
   }
+
+  editAvatarUrl({ url }) {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/users/me/avatar`,
+      {
+        method: "PATCH",
+        headers: { ...this._headers, "Content-Type": "application/json" },
+        body: JSON.stringify({ avatar: url }),
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }

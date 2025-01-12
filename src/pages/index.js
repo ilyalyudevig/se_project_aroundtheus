@@ -24,10 +24,12 @@ const {
   profileImageSelector,
   cardsListSelector,
   deleteCardModalSelector,
+  editAvatarModalSelector,
 } = selectors;
 
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
+const editAvatarElement = document.querySelector(".profile__avatar-container");
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -88,12 +90,39 @@ function addPlace() {
 const userInfo = new UserInfo({
   nameSelector: profileNameSelector,
   jobSelector: profileJobSelector,
-  imageSelector: profileImageSelector,
+  profileImageSelector: profileImageSelector,
 });
 
 api.getUserInfo().then((res) => {
-  userInfo.setUserInfo({ name: res.name, job: res.about });
+  userInfo.setUserInfo({
+    name: res.name,
+    job: res.about,
+    avatarUrl: res.avatar,
+  });
 });
+
+const editAvatarPopup = new PopupWithForm(
+  editAvatarModalSelector,
+  handleEditAvatarSubmit
+);
+
+editAvatarPopup.setEventListeners();
+const editAvatarForm = editAvatarPopup.getForm();
+const avatarUrlInput = editAvatarForm.querySelector("[name='url']");
+
+function editAvatar() {
+  const profileInfo = userInfo.getUserInfo();
+  const { avatarUrl } = profileInfo;
+  avatarUrlInput.value = avatarUrl;
+  editAvatarPopup.open();
+}
+
+function handleEditAvatarSubmit({ url }) {
+  api.editAvatarUrl({ url });
+  userInfo.setAvatar({ avatarUrl: url });
+  editAvatarPopup.close();
+  formValidators["edit-avatar-form"].resetValidation();
+}
 
 function editProfile() {
   const profileInfo = userInfo.getUserInfo();
@@ -148,6 +177,7 @@ function handleLikeClick({ cardId, method }) {
 
 editProfileButton.addEventListener("click", editProfile);
 addPlaceButton.addEventListener("click", addPlace);
+editAvatarElement.addEventListener("click", editAvatar);
 
 const formValidators = {};
 

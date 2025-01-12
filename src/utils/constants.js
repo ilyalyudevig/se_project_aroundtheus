@@ -38,6 +38,7 @@ const selectors = {
   modalImageSelector: ".modal__image",
   modalImageTitleSelector: ".modal__title",
   deleteCardModalSelector: ".page__delete-card-modal",
+  editAvatarModalSelector: ".page__edit-avatar-modal",
 };
 
 const formValidationSettings = {

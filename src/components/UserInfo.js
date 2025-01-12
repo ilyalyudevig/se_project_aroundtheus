@@ -9,11 +9,17 @@ export class UserInfo {
     return {
       name: this._nameElement.textContent,
       job: this._jobElement.textContent,
+      avatarUrl: this._profileImage.src,
     };
   }
 
-  setUserInfo({ name, job }) {
+  setUserInfo({ name, job, avatarUrl }) {
     this._nameElement.textContent = name;
     this._jobElement.textContent = job;
+    this._profileImage.src = avatarUrl;
+  }
+
+  setAvatar({ avatarUrl }) {
+    this._profileImage.src = avatarUrl;
   }
 }

@@ -10,7 +10,7 @@ This project is an interactive page where users can add and remove photos, like 
 
 The webpage is responsive, i.e., the content area's width changes depending on the browser window's width, and there is no horizontal scrolling. The minimum supported screen width is 320px with one card per row. The maximum window width is 1280px, with three cards per row—880px for the content and 200px of empty space on each side.
 
-![Layout demo](/docs/layout-demo.gif "Layout demo")
+![Layout demo](src/docs/layout-demo.gif "Layout demo")
 
 ## Technologies
 
@@ -18,11 +18,11 @@ The project uses HTML to structure the content of the webpage, and CSS is used t
 
 HTML elements are marked up according to the [BEM methodoogy](https://en.bem.info/methodology/quick-start/):
 
-![BEM markup](/docs/bem-markup.png "BEM markup")
+![BEM markup](src/docs/bem-markup.png "BEM markup")
 
 Each block's styles are contained in a separate CSS file (flat BEM file structure):
 
-![Flat BEM file structure](/docs/flat-bem-file-structure.png "Flat BEM file structure")
+![Flat BEM file structure](src/docs/flat-bem-file-structure.png "Flat BEM file structure")
 
 The project uses [Normalize.css](https://nicolasgallagher.com/about-normalize-css/), which provides a consistent base for styling across different browsers.
 

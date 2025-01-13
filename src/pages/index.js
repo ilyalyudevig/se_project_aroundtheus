@@ -121,6 +121,7 @@ function openDeleteCardPopup({ cardId }) {
 
 function handleSubmit(request, popupInstance, loadingText = "Saving...") {
   popupInstance.renderLoading(true, loadingText);
+
   request()
     .then(() => {
       popupInstance.close();
@@ -143,8 +144,8 @@ function handleProfileFormSubmit({ name, job }) {
 }
 
 function handleAddPlaceFormSubmit({ title, url }) {
-  addPlacePopup.renderLoading(true);
   const newCard = { name: title, link: url };
+
   function makeRequest() {
     return api
       .addCard(newCard)
@@ -158,7 +159,6 @@ function handleAddPlaceFormSubmit({ title, url }) {
 }
 
 function handleEditAvatarSubmit({ url }) {
-  editAvatarPopup.renderLoading(true);
   function makeRequest() {
     return api.editAvatarUrl({ url }).then(() => {
       userInfo.setAvatar({ avatarUrl: url });

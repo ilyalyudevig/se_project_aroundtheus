@@ -82,8 +82,6 @@ const editAvatarPopup = new PopupWithForm(
   handleEditAvatarSubmit
 );
 editAvatarPopup.setEventListeners();
-const editAvatarForm = editAvatarPopup.getForm();
-const avatarUrlInput = editAvatarForm.querySelector("[name='url']");
 
 const imagePopup = new PopupWithImage(imageModalSelector);
 imagePopup.setEventListeners();
@@ -101,68 +99,15 @@ function editProfile() {
   profilePopup.open();
 }
 
-function handleProfileFormSubmit({ name, job }) {
-  profilePopup.renderLoading(true);
-  api
-    .editUserInfo({ name, job })
-    .then(() => {
-      userInfo.setUserInfo({ name, job });
-      profilePopup.close();
-      profilePopup.getForm().reset();
-    })
-    .catch((err) => {
-      console.error("Error updating profile:", err);
-    })
-    .finally(() => {
-      profilePopup.renderLoading(false);
-    });
-}
-
 function addPlace() {
   formValidators["place-form"].toggleButtonState();
   addPlacePopup.open();
 }
 
-function handleAddPlaceFormSubmit({ title, url }) {
-  addPlacePopup.renderLoading(true);
-  const newCard = { name: title, link: url };
-  api
-    .addCard(newCard)
-    .then((savedCard) => {
-      cardsList.renderItems([savedCard]);
-      addPlacePopup.close();
-      addPlacePopup.getForm().reset();
-      formValidators["place-form"].toggleButtonState();
-    })
-    .catch((err) => {
-      console.error("Error adding place:", err);
-    })
-    .finally(() => {
-      addPlacePopup.renderLoading(false);
-    });
-}
-
 function editAvatar() {
   const { avatarUrl } = userInfo.getUserInfo();
-  editAvatarPopup.setInputValues({ avatarUrl });
+  editAvatarPopup.setInputValues({ url: avatarUrl });
   editAvatarPopup.open();
-}
-
-function handleEditAvatarSubmit({ url }) {
-  editAvatarPopup.renderLoading(true);
-  api
-    .editAvatarUrl({ url })
-    .then(() => {
-      userInfo.setAvatar({ avatarUrl: url });
-      editAvatarPopup.close();
-      editAvatarPopup.getForm().reset();
-    })
-    .catch((err) => {
-      console.error("Error updating avatar:", err);
-    })
-    .finally(() => {
-      editAvatarPopup.renderLoading(false);
-    });
 }
 
 function handleImageClick(data) {
@@ -172,6 +117,55 @@ function handleImageClick(data) {
 function openDeleteCardPopup({ cardId }) {
   deleteCardPopup.setCardId(cardId);
   deleteCardPopup.open();
+}
+
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close();
+      popupInstance.getForm().reset();
+    })
+    .catch((err) => console.error("Error:", err))
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
+function handleProfileFormSubmit({ name, job }) {
+  function makeRequest() {
+    return api.editUserInfo({ name, job }).then(({ name, about: job }) => {
+      userInfo.setUserInfo({ name, job });
+    });
+  }
+
+  handleSubmit(makeRequest, profilePopup);
+}
+
+function handleAddPlaceFormSubmit({ title, url }) {
+  addPlacePopup.renderLoading(true);
+  const newCard = { name: title, link: url };
+  function makeRequest() {
+    return api
+      .addCard(newCard)
+      .then((savedCard) => {
+        cardsList.renderItems([savedCard]);
+      })
+      .then(() => formValidators["place-form"].toggleButtonState());
+  }
+
+  handleSubmit(makeRequest, addPlacePopup);
+}
+
+function handleEditAvatarSubmit({ url }) {
+  editAvatarPopup.renderLoading(true);
+  function makeRequest() {
+    return api.editAvatarUrl({ url }).then(() => {
+      userInfo.setAvatar({ avatarUrl: url });
+    });
+  }
+
+  handleSubmit(makeRequest, editAvatarPopup);
 }
 
 function deleteCard(cardId) {

@@ -11,7 +11,6 @@ export class PopupWithConfirmation extends Popup {
     this._confirmButton.addEventListener("click", (evt) => {
       evt.preventDefault();
       this._deleteCard(this._cardId);
-      this.close();
     });
     super.setEventListeners();
   }

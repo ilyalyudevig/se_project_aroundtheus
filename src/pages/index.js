@@ -52,25 +52,24 @@ const userInfo = new UserInfo({
   profileImageSelector: profileImageSelector,
 });
 
-api.getData().then(({ userInfo: userData, cards }) => {
-  const { name, about, avatar } = userData;
-  userInfo.setUserInfo({
-    name,
-    job: about,
-    avatarUrl: avatar,
-  });
-  cardsList.renderItems(cards.reverse());
-});
+api
+  .getData()
+  .then(({ userInfo: userData, cards }) => {
+    const { name, about, avatar } = userData;
+    userInfo.setUserInfo({
+      name,
+      job: about,
+      avatarUrl: avatar,
+    });
+    cardsList.renderItems(cards.reverse());
+  })
+  .catch((err) => console.error("Error fetching user data and cards:", err));
 
 const profilePopup = new PopupWithForm(
   profileModalSelector,
   handleProfileFormSubmit
 );
 profilePopup.setEventListeners();
-const profileFormElement = profilePopup.getForm();
-
-const nameInput = profileFormElement.querySelector("[name='name']");
-const jobInput = profileFormElement.querySelector("[name='job']");
 
 const addPlacePopup = new PopupWithForm(
   placeModalSelector,
@@ -97,71 +96,72 @@ deleteCardPopup.setEventListeners();
 
 function editProfile() {
   const { name, job } = userInfo.getUserInfo();
-  nameInput.value = name;
-  jobInput.value = job;
+  profilePopup.setInputValues({ name, job });
+  formValidators["profile-form"].resetValidation();
   profilePopup.open();
 }
 
 function handleProfileFormSubmit({ name, job }) {
-  profilePopup.setButtonText("Saving...");
+  profilePopup.renderLoading(true);
   api
     .editUserInfo({ name, job })
     .then(() => {
       userInfo.setUserInfo({ name, job });
       profilePopup.close();
+      profilePopup.getForm().reset();
     })
     .catch((err) => {
       console.error("Error updating profile:", err);
     })
     .finally(() => {
-      profilePopup.setButtonText("Save");
-      formValidators["profile-form"].resetValidation();
+      profilePopup.renderLoading(false);
     });
 }
 
 function addPlace() {
-  formValidators["place-form"].resetValidation();
+  formValidators["place-form"].toggleButtonState();
   addPlacePopup.open();
 }
 
 function handleAddPlaceFormSubmit({ title, url }) {
-  addPlacePopup.setButtonText("Saving...");
+  addPlacePopup.renderLoading(true);
   const newCard = { name: title, link: url };
   api
     .addCard(newCard)
     .then((savedCard) => {
       cardsList.renderItems([savedCard]);
       addPlacePopup.close();
+      addPlacePopup.getForm().reset();
+      formValidators["place-form"].toggleButtonState();
     })
     .catch((err) => {
       console.error("Error adding place:", err);
     })
     .finally(() => {
-      addPlacePopup.setButtonText("Create");
-      formValidators["place-form"].toggleButtonState();
+      addPlacePopup.renderLoading(false);
     });
 }
 
 function editAvatar() {
   const { avatarUrl } = userInfo.getUserInfo();
-  avatarUrlInput.value = avatarUrl;
+  editAvatarPopup.setInputValues({ avatarUrl });
   editAvatarPopup.open();
 }
 
 function handleEditAvatarSubmit({ url }) {
-  editAvatarPopup.setButtonText("Saving...");
+  editAvatarPopup.renderLoading(true);
   api
     .editAvatarUrl({ url })
     .then(() => {
       userInfo.setAvatar({ avatarUrl: url });
       editAvatarPopup.close();
+      editAvatarPopup.getForm().reset();
     })
     .catch((err) => {
       console.error("Error updating avatar:", err);
     })
     .finally(() => {
-      editAvatarPopup.setButtonText("Save");
-      formValidators["edit-avatar-form"].resetValidation();
+      editAvatarPopup.renderLoading(false);
     });
 }
 
@@ -175,12 +175,22 @@ function openDeleteCardPopup({ cardId }) {
 }
 
 function deleteCard(cardId) {
-  document.querySelector(`#${cardId}`).remove();
-  api.deleteCard({ cardId });
+  api
+    .deleteCard({ cardId })
+    .then(() => {
+      document.querySelector(`#${cardId}`).remove();
+      deleteCardPopup.close();
+    })
+    .catch((err) => console.error("Error deleting the card:", err))
+    .finally(() => {
+      formValidators["confirm-card-delete-form"].resetValidation();
+    });
 }
 
 function handleLikeClick({ cardId, method }) {
-  api.likeCard({ cardId, method });
+  api
+    .likeCard({ cardId, method })
+    .catch((err) => console.error("Error during like click:", err));
 }
 
 function enableValidation(settings) {

@@ -16,7 +16,7 @@ export class UserInfo {
   setUserInfo({ name, job, avatarUrl = this._profileImage.src }) {
     this._nameElement.textContent = name;
     this._jobElement.textContent = job;
-    this._profileImage.src = avatarUrl;
+    this.setAvatar({ avatarUrl });
   }
 
   setAvatar({ avatarUrl }) {

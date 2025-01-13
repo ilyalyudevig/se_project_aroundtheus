@@ -147,12 +147,10 @@ function handleAddPlaceFormSubmit({ title, url }) {
   const newCard = { name: title, link: url };
 
   function makeRequest() {
-    return api
-      .addCard(newCard)
-      .then((savedCard) => {
-        cardsList.renderItems([savedCard]);
-      })
-      .then(() => formValidators["place-form"].toggleButtonState());
+    return api.addCard(newCard).then((savedCard) => {
+      cardsList.renderItems([savedCard]);
+      formValidators["place-form"].toggleButtonState();
+    });
   }
 
   handleSubmit(makeRequest, addPlacePopup);

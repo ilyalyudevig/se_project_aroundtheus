@@ -2,7 +2,7 @@ import { selectors } from "../utils/constants.js";
 
 const { pageSelector, closeModalButtonSelector } = selectors;
 
-export default class Popup {
+export class Popup {
   constructor({ selector }) {
     this._popup = document.querySelector(selector);
     this._page = document.querySelector(pageSelector);

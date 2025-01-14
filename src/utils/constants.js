@@ -32,10 +32,13 @@ const selectors = {
   imageModalSelector: ".page__image-modal",
   profileNameSelector: ".profile__name",
   profileJobSelector: ".profile__job",
+  profileImageSelector: ".profile__avatar",
   cardsListSelector: ".places__list",
   closeModalButtonSelector: ".modal__close-button",
   modalImageSelector: ".modal__image",
   modalImageTitleSelector: ".modal__title",
+  deleteCardModalSelector: ".page__delete-card-modal",
+  editAvatarModalSelector: ".page__edit-avatar-modal",
 };
 
 const formValidationSettings = {
@@ -46,4 +49,6 @@ const formValidationSettings = {
   errorClass: "form__input-error_active",
 };
 
-export { initialCards, selectors, formValidationSettings };
+const token = "19c5994b-226e-4f78-a8d2-c207c10029fd";
+
+export { initialCards, selectors, formValidationSettings, token };
